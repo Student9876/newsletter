@@ -8,8 +8,9 @@ const app = express();
 const apiKey = "2afbae8bac0e6198b85a6abea7a5a62b-us21";
 const audienceID = "109ef2d45f";
 
-
+// this code serves the static files like css and js files 
 app.use(express.static("public"));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -48,9 +49,9 @@ app.post("/", function (req, res) {
 
     const request = https.request(url, option, function (response) {
 
-        if(response.statusCode === 200){
+        if (response.statusCode === 200) {
             res.sendFile(__dirname + "/success.html");
-        }else {
+        } else {
             res.sendFile(__dirname + "/failure.html");
         }
 
@@ -59,17 +60,17 @@ app.post("/", function (req, res) {
         });
     });
 
-        request.write(jsonData);
-        request.end();
+    request.write(jsonData);
+    request.end();
 
 });
 
 // This part of code will redirect the page from failure to root dir
-app.post("/failure", function(req, res){
+app.post("/failure", function (req, res) {
     res.redirect("/");
 });
 
 app.listen(process.env.PORT || 3000, function () {
-    console.log("Server is running on port "+process.env.PORT);
+    console.log("Server is running on port " + process.env.PORT);
 });
 
